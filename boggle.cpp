@@ -95,5 +95,25 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 								   std::string word, std::set<std::string>& result, unsigned int r, unsigned int c, int dr, int dc)
 {
 //add your solution here!
-
+	if(c == board.size() || r == board[0].size() || prefix.end() == prefix.find(word)){
+		if(dict.end() == dict.find(word)){
+			return false;
+		}
+		else{
+			result.insert(word);
+			return true;
+		}
+	}
+	word += board[r][c];
+	bool recurse = boggleHelper(dict, prefix, board, word, result, dr + r, dc + c, dr, dc);
+	if(recurse == true){
+		return recurse;
+	}
+	else{
+		if(dict.end() != dict.find(word)){
+			result.insert(word);
+			return true;
+		}
+		return false;
+	}
 }
